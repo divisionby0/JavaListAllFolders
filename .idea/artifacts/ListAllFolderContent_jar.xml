@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ListAllFolderContent:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ListAllFolderContent_jar</output-path>
+    <root id="archive" name="ListAllFolderContent_jar.jar">
+      <element id="module-output" name="ListAllFolderContent" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_listallfoldercontent" default="compile.module.listallfoldercontent">
+  <dirname property="module.listallfoldercontent.basedir" file="${ant.file.module_listallfoldercontent}"/>
+  
+  <property name="module.jdk.home.listallfoldercontent" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.listallfoldercontent" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.listallfoldercontent" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.listallfoldercontent" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="listallfoldercontent.output.dir" value="${module.listallfoldercontent.basedir}/out/production/ListAllFolderContent"/>
+  <property name="listallfoldercontent.testoutput.dir" value="${module.listallfoldercontent.basedir}/out/test/ListAllFolderContent"/>
+  
+  <path id="listallfoldercontent.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="listallfoldercontent.module.production.classpath">
+    <path refid="${module.jdk.classpath.listallfoldercontent}"/>
+  </path>
+  
+  <path id="listallfoldercontent.runtime.production.module.classpath">
+    <pathelement location="${listallfoldercontent.output.dir}"/>
+  </path>
+  
+  <path id="listallfoldercontent.module.classpath">
+    <path refid="${module.jdk.classpath.listallfoldercontent}"/>
+    <pathelement location="${listallfoldercontent.output.dir}"/>
+  </path>
+  
+  <path id="listallfoldercontent.runtime.module.classpath">
+    <pathelement location="${listallfoldercontent.testoutput.dir}"/>
+    <pathelement location="${listallfoldercontent.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.listallfoldercontent">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.listallfoldercontent">
+    <patternset refid="excluded.from.module.listallfoldercontent"/>
+  </patternset>
+  
+  <path id="listallfoldercontent.module.sourcepath">
+    <dirset dir="${module.listallfoldercontent.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.listallfoldercontent" depends="compile.module.listallfoldercontent.production,compile.module.listallfoldercontent.tests" description="Compile module ListAllFolderContent"/>
+  
+  <target name="compile.module.listallfoldercontent.production" depends="register.custom.compilers" description="Compile module ListAllFolderContent; production classes">
+    <mkdir dir="${listallfoldercontent.output.dir}"/>
+    <javac2 destdir="${listallfoldercontent.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.listallfoldercontent}/javac">
+      <compilerarg line="${compiler.args.listallfoldercontent}"/>
+      <bootclasspath refid="listallfoldercontent.module.bootclasspath"/>
+      <classpath refid="listallfoldercontent.module.production.classpath"/>
+      <src refid="listallfoldercontent.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.listallfoldercontent"/>
+    </javac2>
+    
+    <copy todir="${listallfoldercontent.output.dir}">
+      <fileset dir="${module.listallfoldercontent.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.listallfoldercontent.tests" depends="register.custom.compilers,compile.module.listallfoldercontent.production" description="compile module ListAllFolderContent; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.listallfoldercontent" description="cleanup module">
+    <delete dir="${listallfoldercontent.output.dir}"/>
+    <delete dir="${listallfoldercontent.testoutput.dir}"/>
+  </target>
+</project>
