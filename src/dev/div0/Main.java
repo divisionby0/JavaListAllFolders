@@ -1,8 +1,7 @@
 package dev.div0;
 
-import dev.div0.dev.div0.FileReader;
-import dev.div0.dev.div0.FileWriter;
-import dev.div0.dev.div0.ListFilesUtil;
+import dev.div0.dev.div0.*;
+import dev.div0.dev.div0.outputString.OutputType;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +39,7 @@ public class Main
         ListFilesUtil listFilesUtil = new ListFilesUtil();
         Scanner scan = new Scanner(System.in);
 
-        String[] inputValues = new String[3];
+        String[] inputValues = new String[4];
 
         for (int i = 0; i < inputValues.length; i++)
         {
@@ -53,17 +52,35 @@ public class Main
             else if(i==2){
                 System.out.println("Save to single file all files content (0/1):");
             }
+            else if(i==3){
+                System.out.println("wordpress / plane js (0/1):");
+            }
 
             inputValues[i] = scan.nextLine();
         }
 
         System.out.println("folder: "+inputValues[0]);
         System.out.println("prefix: "+inputValues[1]);
+        System.out.println("single file included: "+inputValues[2]);
+        System.out.println("wordpress / plane js : "+inputValues[3]);
 
         String text = scan.nextLine();
         listFilesUtil.setInitFolderPath(inputValues[0]);
         listFilesUtil.setPrefix(inputValues[1]);
         listFilesUtil.setSaveToSingleFile(Integer.parseInt(inputValues[2]));
+
+        int outputType = Integer.parseInt(inputValues[3]);
+
+        if(outputType == 0){
+            listFilesUtil.setOutputStringType(OutputType.WORDPRESS);
+        }
+        else if(outputType == 1){
+            listFilesUtil.setOutputStringType(OutputType.PLANE_JS);
+        }
+        else{
+            System.err.println("unable to detect output type. You must select 0 or 1");
+            return;
+        }
 
         if(listFilesUtil.getSaveToSingleFile() == 1){
             listFilesUtil.setFilesContentCompositionFilePath(generatedFilePath+"/out.js");

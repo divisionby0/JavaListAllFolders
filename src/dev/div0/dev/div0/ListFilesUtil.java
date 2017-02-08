@@ -1,5 +1,9 @@
 package dev.div0.dev.div0;
 
+import dev.div0.dev.div0.outputString.OutputType;
+import dev.div0.dev.div0.outputString.PlaneJSOutputString;
+import dev.div0.dev.div0.outputString.WordpressOutputString;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,6 +23,16 @@ public class ListFilesUtil {
     private FileWriter fileWriter;
     private FileReader fileReader;
 
+    private IOutputString outputString;
+
+    public void setOutputStringType(OutputType outputType){
+        if(outputType == OutputType.WORDPRESS){
+            outputString = new WordpressOutputString();
+        }
+        else if(outputType == OutputType.PLANE_JS){
+            outputString = new PlaneJSOutputString();
+        }
+    }
 
     /**
      * List all the files and folders from a directory
@@ -93,7 +107,10 @@ public class ListFilesUtil {
 
                     finalFile = finalFile.replace("\\", "/");
                     //String fileString = "wp_enqueue_script('"+String.valueOf(Math.round(Math.random()*100000))+"_"+String.valueOf(Math.round(Math.random()*100000))+"', plugins_url('/"+prefix+finalFile+"',FPD_PLUGIN_ROOT_PHP), null, Fancy_Product_Designer::FPD_VERSION);\n";
-                    String fileString = "wp_enqueue_script('"+String.valueOf(Math.round(Math.random()*100000))+"_"+String.valueOf(Math.round(Math.random()*100000))+"', plugins_url('/"+prefix+finalFile+"'));\n";
+
+                    String fileString = outputString.getString(prefix, finalFile);
+
+                    //String fileString = "wp_enqueue_script('"+String.valueOf(Math.round(Math.random()*100000))+"_"+String.valueOf(Math.round(Math.random()*100000))+"', plugins_url('/"+prefix+finalFile+"'));\n";
 
                     try
                     {
