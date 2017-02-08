@@ -19,6 +19,7 @@ public class ListFilesUtil {
     private FileWriter fileWriter;
     private FileReader fileReader;
 
+
     /**
      * List all the files and folders from a directory
      * @param directoryName to be listed
@@ -91,7 +92,8 @@ public class ListFilesUtil {
                     finalFile = finalFile.replace(initFolderPath, "");
 
                     finalFile = finalFile.replace("\\", "/");
-                    String fileString = "wp_enqueue_script('"+String.valueOf(Math.round(Math.random()*100000))+"_"+String.valueOf(Math.round(Math.random()*100000))+"', plugins_url('/"+prefix+finalFile+"',FPD_PLUGIN_ROOT_PHP), null, Fancy_Product_Designer::FPD_VERSION);\n";
+                    //String fileString = "wp_enqueue_script('"+String.valueOf(Math.round(Math.random()*100000))+"_"+String.valueOf(Math.round(Math.random()*100000))+"', plugins_url('/"+prefix+finalFile+"',FPD_PLUGIN_ROOT_PHP), null, Fancy_Product_Designer::FPD_VERSION);\n";
+                    String fileString = "wp_enqueue_script('"+String.valueOf(Math.round(Math.random()*100000))+"_"+String.valueOf(Math.round(Math.random()*100000))+"', plugins_url('/"+prefix+finalFile+"'));\n";
 
                     try
                     {

@@ -18,7 +18,10 @@ public class Main
 {
     private static String generatedFilePath;
 
+    private static String version = "0.0.1";
+
     public static void main(String[] args) {
+        System.out.println(version);
         try {
             String path = getProgramPath2();
 
